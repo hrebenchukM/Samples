@@ -14,7 +14,6 @@ app.get('/', function (req, res) {
 var counter = 0;
 // событие connection генерируется, когда socket.io клиент подключается к серверу
 io.on('connection', function (socket) {//подписываемся на событие connection,io-это обьект сокета на стороне сервера
-    console.log('user connected to socket');
     // генерация нового события test 
     socket.emit('test', {
         counter: counter++
@@ -23,7 +22,12 @@ io.on('connection', function (socket) {//подписываемся на соб�
     socket.on('disconnect', function () {//socket.on-подписываемся на событие которое генерируется на клиенте
         console.log('user disconnected');
     });
+    
+    socket.on('sendname',function(data){
+    console.log(data.username);
+    });
 });
+
 
 server.listen(port, function () {
     console.log('app running on port ' + port); 

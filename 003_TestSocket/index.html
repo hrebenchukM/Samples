@@ -16,9 +16,10 @@
             btn.addEventListener('click', function () {//добавляем подписчика на событие click(срабатывает каждый раз, когда пользователь кликает на кнопку)
 
                 
-                var socket = io.connect('http://localhost:8080');//подключаемся и указываем какой сервер
+                var socket = io.connect('http://26.2.14.207:8080');//подключаемся и указываем какой сервер
                 // обработка события test 
                 socket.on('test', function (data) {//подписываемся на событие test-не стандартное событие , оно генерируется серверером
+                    socket.emit('sendname',{username:'Kris'});
                     console.log(data)
                     container.innerHTML += data.counter + '</br>'; //добавляем значение counter и перенос строки в контейнер
                     
@@ -28,9 +29,11 @@
                 // событие 'connect' генерируется, когда socket.io клиент подключается к серверу 
                 socket.on('connect', function () {
                     console.log('connected to socket');
+                     
                 });
                 // событие 'disconnect' генерируется, когда socket.io клиент отключается от сервера 
                 socket.on('disconnect', function () {//  реагирует на socket.disconnect();
+        
                     console.log('disconnected from socket');
                 });
                 // обработка ошибок соединения 
