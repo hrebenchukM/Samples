@@ -9,22 +9,22 @@
     <script>
 
         window.onload = function () { 
-            var btn1 = document.getElementById('btn1');
-            var btn2 = document.getElementById('btn2');
-            var containers = document.getElementsByTagName('h3'); 
-
+            var btn1 = document.getElementById('btn1');//разделение
+            var btn2 = document.getElementById('btn2');//разделение
+            var containers = document.getElementsByTagName('h3'); //по названию тега массив h3
+//два обработчика на две кнопки и в каждом соединение с сервером
             btn1.onclick = function () {
                 // создать 1е подключение
                 var socket = io.connect('http://localhost:8080');
 
-                socket.on('data', function (data) {
-                    containers[0].innerHTML += data.message + '</br>';
+                socket.on('data', function (data) {//подписываемся на событие data
+                    containers[0].innerHTML += data.message + '</br>';//полученные меседж записываем в innerHTML в containers[0](в первый h3)
 
-                    socket.emit('response', { message: 'client 1 got data' });
-                    socket.disconnect(); 
+                    socket.emit('response', { message: 'client 1 got data' });//генерируем новое событие response и в обработчик этого события на стороне сервера передаем обьект message с текстом 
+                    socket.disconnect(); //разрыв соединения
                 });
             }
-
+//то же что и в первой кнопке происходит по сути
             btn2.onclick = function () {
                 // создать 2е подключение 
                 var socket = io.connect('http://localhost:8080');
