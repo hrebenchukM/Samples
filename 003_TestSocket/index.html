@@ -7,29 +7,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+        // устанавливаем обработчик события загрузки окна
         window.onload = function () {
+        // єтот код выполнится после полной загрузки страницы
+            var container = document.getElementById('output');// Получаем элемент с id "output"
+            var btn = document.getElementById('btn');// Получаем элемент с id "btn"
 
-            var container = document.getElementById('output');
-            var btn = document.getElementById('btn');
-
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', function () {//добавляем подписчика на событие click(срабатывает каждый раз, когда пользователь кликает на кнопку)
 
                 
-                var socket = io.connect('http://localhost:8080');
+                var socket = io.connect('http://localhost:8080');//подключаемся и указываем какой сервер
                 // обработка события test 
-                socket.on('test', function (data) {
+                socket.on('test', function (data) {//подписываемся на событие test-не стандартное событие , оно генерируется серверером
                     console.log(data)
-                    container.innerHTML += data.counter + '</br>';
+                    container.innerHTML += data.counter + '</br>'; //добавляем значение counter и перенос строки в контейнер
                     
                     // разорвать соединение
-                    socket.disconnect(); 
+                    socket.disconnect(); //disconnect от сокет ио как connect -стандартный метод
                 }); 
                 // событие 'connect' генерируется, когда socket.io клиент подключается к серверу 
                 socket.on('connect', function () {
                     console.log('connected to socket');
                 });
-                // событие 'connect' генерируется, когда socket.io клиент отключается от сервера 
-                socket.on('disconnect', function () {
+                // событие 'disconnect' генерируется, когда socket.io клиент отключается от сервера 
+                socket.on('disconnect', function () {//  реагирует на socket.disconnect();
                     console.log('disconnected from socket');
                 });
                 // обработка ошибок соединения 

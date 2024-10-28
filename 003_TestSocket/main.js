@@ -13,14 +13,14 @@ app.get('/', function (req, res) {
 
 var counter = 0;
 // событие connection генерируется, когда socket.io клиент подключается к серверу
-io.on('connection', function (socket) {
+io.on('connection', function (socket) {//подписываемся на событие connection,io-это обьект сокета на стороне сервера
     console.log('user connected to socket');
-    // генерация события test 
+    // генерация нового события test 
     socket.emit('test', {
         counter: counter++
     });
     // событие disconnect генерируется, когда socket.io клиент отключается от сервера 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', function () {//socket.on-подписываемся на событие которое генерируется на клиенте
         console.log('user disconnected');
     });
 });
