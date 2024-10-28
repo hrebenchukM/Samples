@@ -12,24 +12,49 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-var counter = 0;
-
-
+var sumPrice = 0;
+let products = [
+    { name: 'Картошечка', price: 35 },
+    { name: 'Бургер', price: 50 },
+    { name: 'Курочка', price: 70 },
+    { name: 'Сок', price: 20 },
+    { name: 'Мороженое', price: 40 }
+];
 
 // событие connection генерируется, когда socket.io клиент подключается к серверу
 io.on('connection', function (socket) {//подписываемся на событие connection,io-это обьект сокета на стороне сервера
-    // генерация нового события test 
-    socket.emit('test', {
-        counter: counter++
-    });
+    
+    console.log('user connected');
+
+    socket.on('sendorder', function (data) {
+        let order = data.userorder;
+        let sumPrice = 0;
+
+        for (let o of order) {
+            for (let product of products) {
+                if (product.name === o.name) {
+                    sumPrice += product.price * o.count;
+                    break;
+                }
+            }
+        }
+    
+    
+    // генерация нового события cost 
+    socket.emit('cost', { sum: sumPrice });
+
+});
+
+
+
+
+
     // событие disconnect генерируется, когда socket.io клиент отключается от сервера 
     socket.on('disconnect', function () {//socket.on-подписываемся на событие которое генерируется на клиенте
         console.log('user disconnected');
     });
     
-    // socket.on('sendname',function(data){
-    // console.log(data.username);
-    // });
+    
 });
 
 
