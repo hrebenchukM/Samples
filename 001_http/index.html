@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-
+<!-- //событийно- ориентированная модель -->
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title>Demo</title>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-
-        // подклчение socket.io клиента к серверу
-        var socket = io.connect('http://localhost:8080');
+///socket.io/socket.io.js используется не только в node а и на стороне клиента
+        // подключение socket.io клиента к серверу
+        var socket = io.connect('http://localhost:8080');//указали сервер
 
         // обработка события
-        socket.on('news', function (data) {
+        socket.on('news', function (data) {//клиент подписывается на событие news от сервера
             console.log(data);
-            document.write(data.greeting);
+            document.write(data.greeting);//показывает эти данные на экран
 
             // генерация события
-            socket.emit('greeting', { response: 'data received!' });
+            socket.emit('greeting', { response: 'data received!' });//клиент после показа генерирует новое событие greeting на которое подписывается сервер
         });
     </script>
 </head>

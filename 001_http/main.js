@@ -1,12 +1,12 @@
-var app = require('http').createServer(handler)
-var io = require('socket.io')(app);
+var app = require('http').createServer(handler)//стандарт родное для нода
+var io = require('socket.io')(app);//сразу создали єкземпляр апп
 
 var fs = require('fs');
 var path = require('path'); 
 
 var port = 8080; 
 
-function handler(req, res) {
+function handler(req, res) {//отвечает за запись заголовка
     // чтение файла index.html 
     fs.readFile(path.join(__dirname, 'index.html'),
     function (err, data) {
@@ -20,10 +20,10 @@ function handler(req, res) {
     });
 }
 
-io.on('connection', function (socket) {
+io.on('connection', function (socket) {//on-подписываемся на событие конекшен,сокет попадает в цункцию обработчик
     // генерация событий, которые будут переданы клиенту 
-    socket.emit('news', { greeting: 'Hello World!' });
-    socket.on('greeting', function (data) {
+    socket.emit('news', { greeting: 'Hello World!' });//emit -генерация нового события , которое отправляет обьект с ключом greeting и текстом 
+    socket.on('greeting', function (data) {//подписываемся на событие greeting и передаем эти данные на консоль
         console.log(data);
     });
 })
