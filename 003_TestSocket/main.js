@@ -23,9 +23,9 @@ io.on('connection', function (socket) {//подписываемся на соб�
         console.log('user disconnected');
     });
     
-    socket.on('sendname',function(data){
-    console.log(data.username);
-    });
+    // socket.on('sendname',function(data){
+    // console.log(data.username);
+    // });
 });
 
 
