@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost:8080/');
+var socket = io.connect('http://26.222.247.153:8080/');
 var user = '';
 
 window.onload = function () {
@@ -13,8 +13,9 @@ window.onload = function () {
 
 
     // загрузить имена пользователей, которые online 
-    socket.emit('load users');
-    socket.on('users loaded', function (data) {
+    socket.emit('load users');//генерируем новое событие load users
+    socket.on('users loaded', function (data) {//подписываемся на событие users loaded
+        // получаем каждого юзера и формируем в виде списка
         var display_users = data.users.map((username) => {
             return `<li>${username}</li>`;
         });
@@ -22,10 +23,13 @@ window.onload = function () {
         users_container.innerHTML = display_users.join(' ');
     });
 
-    // загрузить сообщения других пользователей (при загрузке страницы)
-    socket.emit('load messages');
-    socket.on('messages loaded', function (data) {
 
+
+    // загрузить сообщения других пользователей (при загрузке страницы)
+    socket.emit('load messages');//генерируем новое событие load messages
+    socket.on('messages loaded', function (data) {//подписываемся на событие сервера messages loaded
+ 
+        // получаем каждое сообщение и формируем 
         var display_messages = data.messages.map((msg) => {
 
             return (`<div class ="panel well">
@@ -38,8 +42,9 @@ window.onload = function () {
     });
 
     // загрузить текущее сообщение
-    socket.on('chat message', function (message) {
+    socket.on('chat message', function (message) {//подписываемся на соытие сервера chat message
         console.log(message)
+        //показали в формате автор и сообщение
         var display_message = `<div class ="panel well">
                                    <h4>${message.author}</h4>
                                    <h5>${message.text}</h5>
@@ -49,7 +54,7 @@ window.onload = function () {
     });
 
     // получить имя пользователя 
-    socket.on('new user', function (data) {
+    socket.on('new user', function (data) {//подписываемся на событие сервера добавление нового юзера
 
         user = data.name;
     })
