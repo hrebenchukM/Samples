@@ -9,23 +9,23 @@
     <script>
 
         window.onload = function () {
-            var btns = document.getElementsByTagName('button'); 
+            var btns = document.getElementsByTagName('button'); //получили кнопку из массива кнопок где 3 кнопки
             var container = document.getElementsByTagName('h3')[0];
             var roomData = document.getElementsByTagName('h2')[0];
 
             var currentNamespace = null; 
 
-            btns[0].onclick = function () {
+            btns[0].onclick = function () {//обработчик нажатия на первую кнопку
               
                 // подключиться к пространству имен 
                 var namespace = io('/namespace');
                              
                 namespace.on('connect', function () {
                     console.log('connected to namespace');
-                    namespace.emit('btn_click', { btn: 1 }); 
+                    namespace.emit('btn_click', { btn: 1 }); //генерируем событие btn_click и передаем 1 . Таким образом сервер может идентифицировать на какую кнопку нажал клиент
                 })
 
-                namespace.on('room_join', function (data) {
+                namespace.on('room_join', function (data) {//по нажатию подписка на событие и происходит room_join (тоже оно под капотом стандартное событие)
                     roomData.innerHTML = 'room ' + data.roomname + ' joined </br>'
                     currentNamespace = namespace; 
                 })
@@ -53,9 +53,9 @@
                 if (currentNamespace) {
                     console.log(currentNamespace)
                     // запросить данные с сервера 
-                    currentNamespace.emit('get_greeting');
+                    currentNamespace.emit('get_greeting');//генерируем событие  get_greeting клиентом
 
-                    currentNamespace.on('greet', function (data) {
+                    currentNamespace.on('greet', function (data) {//клиент подписывается на событие greet сервера
                         container.innerHTML += data.message + '</br>';
 
                         // разорвать соединение
