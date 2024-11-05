@@ -27,9 +27,16 @@ app.get('/:id', function (req, res) {//начальна настройка ге�
         res.sendStatus(404); 
     }
     else {
-
-        users.push(req.params.id);
-        res.sendFile(path.join(__dirname, 'index.html'));
+        if(users.indexOf(req.params.id)!==-1)
+        {
+          res.send("This username exist.Try another.");
+        }
+        else
+        {
+            users.push(req.params.id);
+            res.sendFile(path.join(__dirname, 'index.html'));
+        }
+        
     }
    
 })
