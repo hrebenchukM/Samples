@@ -10,7 +10,7 @@ window.onload = function () {
 
     var btn = document.getElementById('btn');
     var message_input = document.getElementById('inp');
-
+    var themeBtn = document.getElementById('theme-btn');
 
     // загрузить имена пользователей, которые online 
     socket.emit('load users');//генерируем новое событие load users
@@ -32,7 +32,7 @@ window.onload = function () {
         // получаем каждое сообщение и формируем 
         var display_messages = data.messages.map((msg) => {
 
-            return (`<div class ="panel well">
+            return (`<div class ="panel well >
                          <h4>${msg.author}</h4>
                          <h5>${msg.text}</h5>
                     </div>`)
@@ -44,8 +44,10 @@ window.onload = function () {
     // загрузить текущее сообщение
     socket.on('chat message', function (message) {//подписываемся на соытие сервера chat message
         console.log(message)
+
+
         //показали в формате автор и сообщение
-        var display_message = `<div class ="panel well">
+        var display_message = `<div class ="panel well ${message.author === user ? 'my' : 'other'}">
                                    <h4>${message.author}</h4>
                                    <h5>${message.text}</h5>
                                </div>`
@@ -65,4 +67,15 @@ window.onload = function () {
         socket.emit('send message', { text: message_input.value, author: user });
 
     }
+
+    themeBtn.onclick = function () {
+        if (document.body.className === 'dark-theme') {
+            document.body.className = '';
+            themeToggleBtn.textContent = 'Switch to Dark Theme'; 
+        } else {
+            document.body.className = 'dark-theme';
+            themeToggleBtn.textContent = 'Switch to Light Theme'; 
+        }
+    }
+
 }

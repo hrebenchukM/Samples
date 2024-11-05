@@ -11,7 +11,10 @@
             overflow: hidden;
             background-color: rgb(212, 219, 226);
         }
-
+        body.dark-theme {
+        background-color: #2e2e2e; 
+        color: #f0f0f0;
+        }
         #username {
             display: inline-block;
         }
@@ -24,11 +27,32 @@
            display: inline-block; 
            margin-top: 350px;  
         }
+
+      
     </style> 
     <script>
         window.onload = function () {
             var btn = document.getElementsByTagName('button')[0]; 
             var inp = document.getElementsByTagName('input')[0]; 
+            var themeBtn = document.getElementsByTagName('button')[1];  
+
+            if (document.body.className === 'dark-theme') {
+                themeBtn.textContent = 'Switch to Light Theme'; 
+            } else {
+                themeBtn.textContent = 'Switch to Dark Theme'; 
+            }
+
+
+            themeBtn.onclick = function () {
+                if (document.body.className === 'dark-theme') {
+                    document.body.className = '';
+                    themeToggleBtn.textContent = 'Switch to Dark Theme'; 
+                } else {
+                    document.body.className = 'dark-theme';
+                    themeToggleBtn.textContent = 'Switch to Light Theme'; 
+                }
+            }
+
 
             btn.onclick = function () { 
 
@@ -55,6 +79,10 @@
                         <button class="btn btn-lg btn-warning">Connect</button>
                     </span>
                 </div>
+
+                <button class="btn btn-lg btn-info" style="margin-top: 20px;">
+                    Switch to Dark Theme
+                </button>
             </div>
         </div>
     </div>
