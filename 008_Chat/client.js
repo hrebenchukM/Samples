@@ -70,11 +70,9 @@ window.onload = function () {
 
     themeBtn.onclick = function () {
         if (document.body.className === 'dark-theme') {
-            document.body.className = '';
-            themeToggleBtn.textContent = 'Switch to Dark Theme'; 
+            document.body.className = '';  
         } else {
             document.body.className = 'dark-theme';
-            themeToggleBtn.textContent = 'Switch to Light Theme'; 
         }
     }
 

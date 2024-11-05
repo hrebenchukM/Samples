@@ -36,20 +36,16 @@
             var inp = document.getElementsByTagName('input')[0]; 
             var themeBtn = document.getElementsByTagName('button')[1];  
 
-            if (document.body.className === 'dark-theme') {
-                themeBtn.textContent = 'Switch to Light Theme'; 
-            } else {
-                themeBtn.textContent = 'Switch to Dark Theme'; 
-            }
+         
 
 
             themeBtn.onclick = function () {
                 if (document.body.className === 'dark-theme') {
                     document.body.className = '';
-                    themeToggleBtn.textContent = 'Switch to Dark Theme'; 
+                  
                 } else {
                     document.body.className = 'dark-theme';
-                    themeToggleBtn.textContent = 'Switch to Light Theme'; 
+                    
                 }
             }
 
@@ -81,7 +77,7 @@
                 </div>
 
                 <button class="btn btn-lg btn-info" style="margin-top: 20px;">
-                    Switch to Dark Theme
+                    Switch Theme
                 </button>
             </div>
         </div>
